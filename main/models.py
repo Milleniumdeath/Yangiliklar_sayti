@@ -14,7 +14,7 @@ class Tag(models.Model):
     def __str__(self):
         return self.name
 
-class PublishedManager(models.Model):
+class PublishedManager(models.Manager):
     def get_queryset(self):
         return super().get_queryset().filter(published=True)
 
@@ -70,6 +70,9 @@ class Comment(models.Model):
     text = models.TextField()
     created_at = models.DateField(auto_now_add=True)
     published = models.BooleanField(default=False)
+
+    objects = models.Manager()
+    published_objects = PublishedManager()
 
     def __str__(self):
         return f"{self.name}'s comment"
